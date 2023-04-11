@@ -7,6 +7,11 @@ const CALL_ENDED = "callEnded";
 const CALL_USER = "callUser";
 const ANSWER_CALL = "answerCall";
 const CALL_ACCEPTED = "callAccepted";
+const CALL_SENT = "callSent";
+
+const SUBTITLE_SENT = "sendSubtitle";
+const SUBTITLE = "subtitle";
+
 
 module.exports = {
     JOIN_CHAT,
@@ -17,5 +22,9 @@ module.exports = {
     CALL_ENDED,
     CALL_USER,
     ANSWER_CALL,
-    CALL_ACCEPTED
+    CALL_ACCEPTED,
+    CALL_SENT,
+
+    SUBTITLE_SENT,
+    SUBTITLE
 };
