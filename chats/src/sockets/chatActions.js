@@ -1,10 +1,10 @@
 const ACTIONS = require("./constants");
 const getChatActions = (io, socket) => {
+    //when any user first join - send emit of chat message to everyone
     socket.on(ACTIONS.JOIN_CHAT, ({ userName }) => {
-        //when any user first join - send emit of chat message to everyone
         io.emit(ACTIONS.CHAT_MESSAGE, {
             user: "admin",
-            message: `User ${userName} has joined!`
+            message: `Пользователь ${userName} вошел в чат`
         });
 
         //when me user send message - send this message to all rest users
@@ -12,11 +12,11 @@ const getChatActions = (io, socket) => {
             socket.broadcast.emit(ACTIONS.CHAT_MESSAGE, { user: userName, message });
         });
 
+        //when any user disconnect - send emit of chat message to everyone
         socket.on("disconnect", () => {
-            //when any user disconnect - send emit of chat message to everyone
             io.emit(ACTIONS.CHAT_MESSAGE, {
                 user: "admin",
-                message: `User ${userName} has disconnected!`
+                message: `Пользователь ${userName} вышел из чата`
             });
         });
     });

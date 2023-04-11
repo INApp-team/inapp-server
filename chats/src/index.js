@@ -5,6 +5,7 @@ const http = require("http");
 const { Server } = require("socket.io");
 const { getChatActions } = require("./sockets/chatActions");
 const { getVideoChatActions } = require("./sockets/videoChatActions");
+const { getSubtitlesActions } = require("./sockets/subtitlesActions");
 
 const PORT = (process.env.PORT && parseInt(process.env.PORT)) || 5100; //chats
 
@@ -26,6 +27,7 @@ const startHttpServer = async () => {
         io.on("connection", (socket) => {
             getVideoChatActions(io, socket);
             getChatActions(io, socket);
+            getSubtitlesActions(io, socket);
         });
 
         server.listen(PORT, () => console.log(`CHATS SERVICE STARTED AT PORT ${PORT}`));
