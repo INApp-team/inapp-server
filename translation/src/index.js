@@ -1,6 +1,7 @@
 const express = require("express");
 const router = require("./router/index");
 const cors = require("cors");
+const errorMiddleware = require("./middlewares/errorMiddleware");
 
 const PORT = (process.env.PORT && parseInt(process.env.PORT)) || 5200; //translation
 
@@ -16,6 +17,7 @@ const startHttpServer = async () => {
             })
         );
         app.use(router);
+        app.use(errorMiddleware);
 
         app.listen(PORT, () => console.log(`TRANSLATION SERVICE STARTED AT PORT ${PORT}`));
     } catch (e) {
