@@ -1,0 +1,65 @@
+version: '3'
+services:
+  db:
+    image: mongo:4.2.0
+    container_name: db
+    ports:
+      - "27017:27017"
+    expose:
+      - "27017"
+    restart: "always"
+
+  gateway:
+    image: gateway
+    build:
+      context: ./gateway
+      dockerfile: Dockerfile-dev
+    container_name: gateway
+    env_file:
+      - .env
+    volumes:
+      - /tmp/gateway/npm-cache:/root/.npm:z
+      - ./gateway/src:/usr/src/app/src:z
+    ports:
+      - "5000:80"
+    environment:
+      - PORT=80
+      - DBURL=mongodb://db:27017/users
+    depends_on:
+      - db
+    restart: "no"
+
+  chat:
+    image: chats
+    build:
+      context: chats
+      dockerfile: Dockerfile-dev
+    container_name: chats
+    tty: true
+    env_file:
+      - .env
+    volumes:
+      - /tmp/chats/npm-cache:/root/.npm:z
+      - ./chats/src:/usr/src/app/src:z
+    ports:
+      - "5100:80"
+    environment:
+      - PORT=80
+    restart: "no"
+
+  translation:
+    image: translation
+    build:
+      context: ./translation
+      dockerfile: Dockerfile-dev
+    container_name: translation
+    env_file:
+      - .env
+    volumes:
+      - /tmp/translation/npm-cache:/root/.npm:z
+      - ./translation/src:/usr/src/app/src:z
+    ports:
+      - "5200:80"
+    environment:
+      - PORT=80
+    restart: "no"
