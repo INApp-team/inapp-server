@@ -1,12 +1,21 @@
 variable "app_version" {}
 variable "service_name" {}
-variable "dns_name" { default = "" }
+variable "dns_name" {
+    default = ""
+}
 variable "login_server" {}
 variable "username" {}
 variable "password" {}
-variable "service_type" { default = "ClusterIP" }
-variable "session_affinity" { default = "None" }
-variable "env" { default = {} type = map(string) }
+variable "service_type" {
+    default = "ClusterIP"
+}
+variable "session_affinity" {
+    default = "None"
+}
+variable "env" {
+    default = {}
+    type = map(string)
+}
 locals {
     image_tag = "${var.login_server}/${var.service_name}:${var.app_version}"
 }

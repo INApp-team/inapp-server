@@ -1,5 +1,6 @@
-const fetch = require("node-fetch");
 const ApiError = require("../exceptions/apiErrors");
+
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
 class ThirdPartyService {
     async translate(headers, body) {

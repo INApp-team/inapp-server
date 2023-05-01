@@ -6,7 +6,8 @@ provider "azurerm" {
     features {}
 }
 
-provider "tls" {} #провайдер для созд ssh ключа для linux профиля
+provider "tls" { #провайдер для созд ssh ключа для linux профиля
+}
 
 provider "kubernetes" {
     host = azurerm_kubernetes_cluster.cluster.kube_config[0].host
@@ -16,5 +17,6 @@ provider "kubernetes" {
     cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.cluster.kube_config[0].cluster_ca_certificate)
 }
 
-provider "null" {} #провайдер для созд null resource для работы с докером
+provider "null" { #провайдер для созд null resource для работы с докером
+}
 

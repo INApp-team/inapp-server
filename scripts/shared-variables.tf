@@ -1,5 +1,5 @@
 variable app_name {
-    default = "d-app"
+    default = "nwdapp"
 }
 variable location {
   default = "westeurope"

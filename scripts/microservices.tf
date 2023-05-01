@@ -15,8 +15,8 @@ module "gateway-microservice" {
     app_version = var.app_version
     env = {
         DBURL: "mongodb://db:27017/users"
-        JWT_ACCESS_SECRET: var.JWT_ACCESS_SECRET
-        JWT_REFRESH_SECRET: var.JWT_REFRESH_SECRET
+        JWT_ACCESS_SECRET = var.JWT_ACCESS_SECRET
+        JWT_REFRESH_SECRET = var.JWT_REFRESH_SECRET
     }
 }
 
@@ -28,7 +28,8 @@ module "translation-microservice" {
     password = local.password
     app_version = var.app_version
     env = {
-        TRANSLATE_CREDENTIALS: var.TRANSLATE_CREDENTIALS
+        TRANSLATE_CREDENTIALS = var.TRANSLATE_CREDENTIALS
+        PRODUCTION: true
     }
 }
 
