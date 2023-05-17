@@ -3,7 +3,7 @@ const router = require("./router/index");
 const cors = require("cors");
 const errorMiddleware = require("./middlewares/errorMiddleware");
 
-const PORT = (process.env.PORT && parseInt(process.env.PORT)) || 5200; //translation
+const PORT = (process.env.PORT && parseInt(process.env.PORT)) || 5300; //translation
 
 const startHttpServer = async () => {
     try {

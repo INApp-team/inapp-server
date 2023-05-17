@@ -21,7 +21,7 @@ services:
       - /tmp/gateway/npm-cache:/root/.npm:z
       - ./gateway/src:/usr/src/app/src:z
     ports:
-      - "5000:80"
+      - "5100:80"
     environment:
       - PORT=80
       - DBURL=mongodb://db:27017/users
@@ -42,7 +42,7 @@ services:
       - /tmp/chats/npm-cache:/root/.npm:z
       - ./chats/src:/usr/src/app/src:z
     ports:
-      - "5100:80"
+      - "5200:80"
     environment:
       - PORT=80
     restart: "no"
@@ -59,8 +59,7 @@ services:
       - /tmp/translation/npm-cache:/root/.npm:z
       - ./translation/src:/usr/src/app/src:z
     ports:
-      - "5200:80"
+      - "5300:80"
     environment:
       - PORT=80
-      - PRODUCTION=false
     restart: "no"

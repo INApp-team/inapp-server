@@ -7,7 +7,7 @@ const { getChatActions } = require("./sockets/chatActions");
 const { getVideoChatActions } = require("./sockets/videoChatActions");
 const { getSubtitlesActions } = require("./sockets/subtitlesActions");
 
-const PORT = (process.env.PORT && parseInt(process.env.PORT)) || 5100; //chats
+const PORT = (process.env.PORT && parseInt(process.env.PORT)) || 5200; //chats
 
 const startHttpServer = async () => {
     try {

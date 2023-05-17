@@ -2,7 +2,7 @@ const { Translate } = require("@google-cloud/translate").v2;
 const ApiError = require("../exceptions/apiErrors")
 const parseStringToObject = require("../utils/parseStringToObject");
 
-const CREDENTIALS = process.env.PRODUCTION ? parseStringToObject(process.env.TRANSLATE_CREDENTIALS) : JSON.parse(process.env.TRANSLATE_CREDENTIALS);
+const CREDENTIALS = !!process.env.PRODUCTION ? parseStringToObject(process.env.TRANSLATE_CREDENTIALS) : JSON.parse(process.env.TRANSLATE_CREDENTIALS);
 
 const translate = new Translate({
     credentials: CREDENTIALS,

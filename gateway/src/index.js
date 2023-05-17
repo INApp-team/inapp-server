@@ -5,8 +5,10 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const router = require("./router/index");
 
-const PORT = (process.env.PORT && parseInt(process.env.PORT)) || 5000; //auth
+const PORT = (process.env.PORT && parseInt(process.env.PORT)) || 5100; //auth
 const DBURL = process.env.DBURL;
+
+const allowedDomains = ['http://localhost:3000', 'http://localhost:3001'];
 
 const startHttpServer = async () => {
     try {
@@ -19,12 +21,18 @@ const startHttpServer = async () => {
 
         app.use(express.json());
         app.use(cookieParser());
-        app.use(
-            cors({
-                credentials: true,
-                origin: "http://localhost:3000"
-            })
-        );
+        app.use(cors({
+            credentials: true,
+            origin: function (origin, callback) {
+                if (!origin) return callback(null, true);
+
+                if (allowedDomains.indexOf(origin) === -1) {
+                    const msg = `This site ${origin} does not have an access. Only specific domains are allowed to access it.`;
+                    return callback(new Error(msg), false);
+                }
+                return callback(null, true);
+            }
+        }));
         app.use(router);
         app.use(errorMiddleware);
 
