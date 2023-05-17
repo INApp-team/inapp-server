@@ -8,7 +8,7 @@ const router = require("./router/index");
 const PORT = (process.env.PORT && parseInt(process.env.PORT)) || 5100; //auth
 const DBURL = process.env.DBURL;
 
-const allowedDomains = ['http://localhost:3000', 'http://localhost:3001'];
+const allowedDomains = ['http://localhost:3000', 'http://localhost:3001', 'http://nwdapp.ru'];
 
 const startHttpServer = async () => {
     try {

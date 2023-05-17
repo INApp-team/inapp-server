@@ -17,6 +17,7 @@ module "gateway-microservice" {
         DBURL: "mongodb://db:27017/users"
         JWT_ACCESS_SECRET = var.JWT_ACCESS_SECRET
         JWT_REFRESH_SECRET = var.JWT_REFRESH_SECRET
+        PRODUCTION: true
     }
 }
 
