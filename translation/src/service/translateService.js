@@ -1,13 +1,5 @@
-const { Translate } = require("@google-cloud/translate").v2;
 const ApiError = require("../exceptions/apiErrors")
-const parseStringToObject = require("../utils/parseStringToObject");
-
-const CREDENTIALS = !!process.env.PRODUCTION ? parseStringToObject(process.env.TRANSLATE_CREDENTIALS) : JSON.parse(process.env.TRANSLATE_CREDENTIALS);
-
-const translate = new Translate({
-    credentials: CREDENTIALS,
-    projectId: CREDENTIALS.project_id
-});
+const axios = require("axios");
 
 class TranslateService {
     async detectLanguage (text) {
@@ -15,8 +7,16 @@ class TranslateService {
             throw ApiError.BadRequest("Ошибка формирования перевода");
         }
         try {
-            let response = await translate.detect(text);
-            return response[0].language;
+            let response = await axios.post("https://translate.api.cloud.yandex.net/translate/v2/detect", {
+                text,
+                folderId: process.env.YANDEX_FOLDER_ID
+            }, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${process.env.YANDEX_TOKEN}`,
+                }
+            })
+            return response.data.languageCode;
         } catch (error) {
             throw ApiError.ServerError();
         }
@@ -27,8 +27,17 @@ class TranslateService {
             throw ApiError.BadRequest("Ошибка формирования запроса");
         }
         try {
-            let [response] = await translate.translate(text, targetLanguage);
-            return response;
+            let response = await axios.post("https://translate.api.cloud.yandex.net/translate/v2/translate", {
+                texts: [text],
+                targetLanguageCode: targetLanguage,
+                folderId: process.env.YANDEX_FOLDER_ID
+            }, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${process.env.YANDEX_TOKEN}`,
+                }
+            })
+            return response.data.translations[0].text;
         } catch (error) {
             throw ApiError.ServerError();
         }
