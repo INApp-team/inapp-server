@@ -29,8 +29,8 @@ module "translation-microservice" {
     password = local.password
     app_version = var.app_version
     env = {
-        TRANSLATE_CREDENTIALS = var.TRANSLATE_CREDENTIALS
-        PRODUCTION: true
+c        YANDEX_TOKEN = var.YANDEX_TOKEN
+        YANDEX_FOLDER_ID = var.YANDEX_FOLDER_ID
     }
 }
 
